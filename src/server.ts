@@ -1,9 +1,22 @@
 import fastify from 'fastify'
+import { knexInstance } from './database.js'
 
 const app = fastify()
 
-app.get('/hello', () => {
-    return 'Hello, PALMEIRAO!'
+app.get('/hello', async () => {
+    const tables = await knexInstance('transactions')
+        .insert({
+            id: crypto.randomUUID(),
+            title: 'Teste',
+            amount: 1000,
+        }).returning('*')
+    return tables
+})
+
+app.get('/boa', async () => {
+    const transactions = await knexInstance('transactions')
+        .select('*')
+    return transactions
 })
 
 app
