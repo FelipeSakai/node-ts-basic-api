@@ -13,12 +13,6 @@ app.get('/hello', async () => {
     return tables
 })
 
-app.get('/boa', async () => {
-    const transactions = await knexInstance('transactions')
-        .select('*')
-    return transactions
-})
-
 app
     .listen({
         port: 3333,
